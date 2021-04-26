@@ -16,3 +16,5 @@ class Graphics():
         self.spider_texture=pygame.transform.scale(picture5, (48,48))
         picture6 = pygame.image.load('./images/skeleton.png')
         self.skeleton_texture = pygame.transform.scale(picture6, (48, 48))
+        picture8=pygame.image.load('./images/web.png')
+        self.web_texture = pygame.transform.scale(picture8, (48, 48))
