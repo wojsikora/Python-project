@@ -2,6 +2,7 @@ from gameobject import GameObject
 from mineral import Mineral
 import pygame
 import math
+
 class Player(GameObject):
     # GOLD = 0
     # COPPER = 1
@@ -27,6 +28,7 @@ class Player(GameObject):
         self.crystals[mineral_type]+=1
         self.generate_score_image()
 
+
     def draw(self,screen,x_center,y_center):
 
         rect=pygame.rect.Rect(x_center-10,y_center-10,20,20)
@@ -34,11 +36,16 @@ class Player(GameObject):
         pygame.draw.rect(screen,(255,0,0),rect)
         #screen.blit(self.game.graphics.diamond_texture, (x_center - 24, y_center - 24))
         screen.blit(self.scores_image,(0,0))
+        screen.blit(self.health_image,(1040,0))
     #elapsed w milisekundach
     #przemieszczanie
-    def update(self,elapsed):
 
-        if self.pressed_axe==True:
+    def update(self,elapsed):
+        if self.health<=0:
+            print("NO HP")
+            sys.exit()
+
+        if self.pressed_axe==True or self.pressed_weapon==True:
             #prawo
             if self.velocity_x>0:
                 offset_x=1
@@ -53,7 +60,7 @@ class Player(GameObject):
                 offset_y=-1
             else:
                 offset_y=0
-            print("hiawfd")
+            #print("hiawfd")
             if offset_x!=0 or offset_y!=0:
                 #wspólrzedne gracza
                 field_x=self.field.x+offset_x
@@ -62,7 +69,12 @@ class Player(GameObject):
                 if field_x>=0 and field_x<self.game.map.width and field_y>=0 and field_y<self.game.map.height:
                     for obj in self.game.map.fields[field_x][field_y].objects:
                         print("hit")
-                        obj.hit_by_axe()
+                        if self.pressed_axe==True:
+                            obj.hit_by_axe()
+                        elif self.pressed_weapon==True:
+                            obj.hit_by_weapon()
+
+
         else:
             p_x=int(self.x+self.velocity_x*elapsed/1000)
             p_y=int(self.y+self.velocity_y*elapsed/1000)
@@ -83,6 +95,7 @@ class Player(GameObject):
                     return
             self.game.map.set_position(self,self.x+self.velocity_x*elapsed/1000,self.y+self.velocity_y*elapsed/1000)
             self.collect_collectibles()
+            self.generate_health_image()
 
 
     def destroy_rocks(self,x,y):
@@ -109,9 +122,7 @@ class Player(GameObject):
             string += str(i)
         self.scores_image=self.game.graphics.font.render(string,True,(255,0,0),(0,0,255))
 
-
-class Enemy:
-
-    def __init__(self):
-        self.health=100
-        self.damage=5
+    def generate_health_image(self):
+        string = 'health: '
+        string += str(self.health)
+        self.health_image=self.game.graphics.font.render(string, True, (255,0,0), (0,0,255))
