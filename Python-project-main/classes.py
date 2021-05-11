@@ -32,8 +32,7 @@ class Player(GameObject):
     def increment_mineral(self,mineral_type):
         self.crystals[mineral_type]+=1
         self.generate_score_image()
-
-
+        
     def draw(self,screen,x_center,y_center):
 
         rect=pygame.rect.Rect(x_center-10,y_center-10,20,20)
@@ -110,8 +109,6 @@ class Player(GameObject):
             self.game.map.set_position(self,self.x+self.velocity_x*elapsed/1000,self.y+self.velocity_y*elapsed/1000)
             self.collect_collectibles()
             self.generate_health_image()
-
-
 
     def destroy_rocks(self,x,y):
 

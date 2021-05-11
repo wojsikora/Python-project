@@ -16,6 +16,8 @@ class Game:
         self.map=Map(self,25,25,5,0,self.screen)
         self.ran=0
         self.pop_up=None
+        self.clicked_x=None
+        self.cliked_y=None
         #self.player = self.map.player
         #self.camera = Camera(self.player)
         #self.follow = Follow(self.camera, self.player)
@@ -36,6 +38,9 @@ class Game:
                     self.check_keydown(event)
                 elif event.type == pygame.KEYUP:
                     self.check_keyup(event)
+                elif event.type==pygame.MOUSEBUTTONDOWN:
+                    if event.button==1:
+
 
             self.update(14)
             self._update_screen()
