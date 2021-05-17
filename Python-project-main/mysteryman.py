@@ -4,16 +4,20 @@ import pygame
 from lantern import Lantern
 from weapon import Weapon
 from scene import ShopScene
+from pickaxe import Pickaxe
+from graphics import Graphics
 class MysteryMan(GameObject):
 
     def __init__(self,game):
         super().__init__(game,False)
         self.goods=[]
-        for i in range(11):
-            if i<5:
-                self.goods.append(Lantern((i+1)*20))
-            else:
-                self.goods.append(Weapon((i+1)*20))
+        self.goods.append(Pickaxe(20,game.graphics.cobelstone_pickaxe))
+        self.goods.append(Pickaxe(40,game.graphics.diamond_pickaxe))
+        # for i in range(11):
+        #     if i<5:
+        #         self.goods.append(Lantern((i+1)*20))
+        #     else:
+        #         self.goods.append(Weapon((i+1)*20))
 
 
     def trade(self):

@@ -1,3 +1,4 @@
+import pygame
 
 
 class ItemView:
@@ -10,3 +11,4 @@ class ItemView:
         self.w=w
         #height
         self.h=h
+        self.rect=pygame.rect.Rect(x,y,w,h)

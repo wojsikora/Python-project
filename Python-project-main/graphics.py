@@ -18,3 +18,7 @@ class Graphics():
         self.skeleton_texture = pygame.transform.scale(picture6, (48, 48))
         picture8=pygame.image.load('./images/web.png')
         self.web_texture = pygame.transform.scale(picture8, (48, 48))
+        cob_pickaxe=pygame.image.load('./images/coblestone_pickaxe.png')
+        self.cobelstone_pickaxe=pygame.transform.scale(cob_pickaxe,(35,35))
+        diam_pickaxe= pygame.image.load('./images/diamond.png')
+        self.diamond_pickaxe = pygame.transform.scale(diam_pickaxe, (35,35))

@@ -4,7 +4,7 @@ import pygame
 from mysteryman import MysteryMan
 from scene import ShopScene
 import math
-
+from leader import Leader
 class Player(GameObject):
     # GOLD = 0
     # COPPER = 1
@@ -28,12 +28,14 @@ class Player(GameObject):
         self.pressed_weapon = False
         #do handlu
         self.pressed_handel=False
+        #do_przejscia_na_nastepny_poziom
+        self.pressed_enter_next_level=False
+
 
     def increment_mineral(self,mineral_type):
         self.crystals[mineral_type]+=1
         self.generate_score_image()
-
-
+        
     def draw(self,screen,x_center,y_center):
 
         rect=pygame.rect.Rect(x_center-10,y_center-10,20,20)
@@ -89,6 +91,18 @@ class Player(GameObject):
                     for obj in self.game.map.fields[x_position][y_position].objects:
                         if(isinstance(obj,MysteryMan)):
                            self.game.pop_up=ShopScene(self.game,obj)
+        elif self.pressed_enter_next_level==True:
+            for i in range(3):
+                for j in range(3):
+                    #wyliczam pozycje
+                    x_position=int(self.x+i-1)
+                    y_position=int(self.y+j-1)
+                    if self.x==x_position or self.y==y_position:
+                        continue
+                    for obj in self.game.map.fields[x_position][y_position].objects:
+                        if(isinstance(obj,Leader)):
+                           #nowa plansza
+                            self.game.next_level()
         else:
             p_x=int(self.x+self.velocity_x*elapsed/1000)
             p_y=int(self.y+self.velocity_y*elapsed/1000)
@@ -110,8 +124,6 @@ class Player(GameObject):
             self.game.map.set_position(self,self.x+self.velocity_x*elapsed/1000,self.y+self.velocity_y*elapsed/1000)
             self.collect_collectibles()
             self.generate_health_image()
-
-
 
     def destroy_rocks(self,x,y):
 

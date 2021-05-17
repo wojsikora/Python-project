@@ -2,13 +2,11 @@ import pygame
 from map import Map
 from graphics import Graphics
 import sys
-
-
-
+from scene import ShopScene
+from leader import Leader
 class Game:
 
     def __init__(self):
-
         pygame.init()
         self.screen = pygame.display.set_mode((1200, 800))
         pygame.display.set_caption("Miner")
@@ -16,13 +14,15 @@ class Game:
         self.map=Map(self,25,25,5,0,self.screen)
         self.ran=0
         self.pop_up=None
+        self.level=1
+        self.clicked_x=None
+        self.clicked_y=None
         #self.player = self.map.player
         #self.camera = Camera(self.player)
         #self.follow = Follow(self.camera, self.player)
         #self.border = Border(self.camera, self.player)
         #self.auto = Auto(self.camera, self.player)
         #self.camera.setmethod(self.follow)
-
 
     def run_game(self):
         self.map.generate_rocks()
@@ -36,6 +36,8 @@ class Game:
                     self.check_keydown(event)
                 elif event.type == pygame.KEYUP:
                     self.check_keyup(event)
+                elif event.type==pygame.MOUSEBUTTONDOWN:
+                    self.check_mouse_pressed(event)
 
             self.update(14)
             self._update_screen()
@@ -72,8 +74,14 @@ class Game:
                m.draw(self.screen,m.x*50,m.y*50)
             for w in self.map.webs:
                 w.draw(self.screen, w.x*50, w.y*50)
+            for leader in self.map.leaders:
+                leader.draw(self.screen,leader.x*50,leader.y*50)
         else:
             self.pop_up.draw()
+            if self.clicked_x!= None and self.cliked_y != None:
+                self.pop_up.check_clicked_field(self.clicked_x,self.cliked_y)
+
+
 
         pygame.display.flip()
 
@@ -97,6 +105,9 @@ class Game:
             self.map.player.pressed_weapon=True
         elif event.key==pygame.K_h:
             self.map.player.pressed_handel=True
+        elif event.key==pygame.K_s:
+            self.map.player.pressed_enter_next_level=True
+
 
         #elif event.type == pygame.KEYUP:
          #   self.check_keyup(event)
@@ -125,12 +136,29 @@ class Game:
             self.map.player.pressed_weapon = False
         elif event.key==pygame.K_h:
             self.map.player.pressed_handel=False
+        elif event.key==pygame.K_s:
+            self.map.player.pressed_enter_next_level=False
+
+    def check_mouse_pressed(self,event):
+        if self.pop_up!=None:
+            #todo
+            if pygame.mouse.get_pressed()[0]:
+                self.pop_up.mouse_pressed(event)
+                print(f"Possition x ={self.clicked_x} possition y= {self.cliked_y}")
+
+
+
+
+    def check_mouse_released(self,event):
+        if self.pop_up!=None:
+            if event.button:
+                pass
+
 
 
     def update(self,elapsed):
         self.map.player.update(elapsed)
         self.ran+=1
-
 
         if self.ran % 800 == 0:
             #for e in self.map.enemies:
@@ -153,9 +181,24 @@ class Game:
                 self.map.enemy3.skeleton_attack(self.map.player)
                 self.map.enemy3.move_toward_player(self.map.player, self.map)
 
-
-
-
+    def next_level(self):
+        for w in range(self.map.width):
+            for h in range(self.map.height):
+                self.map.fields[w][h].objects=[]
+        self.map.bats=[]
+        self.map.enemies = []
+        self.map.bats = []
+        self.map.spiders = []
+        self.map.skeletons = []
+        self.map.rocks = []
+        self.map.minerals = []
+        self.map.MM = []
+        self.map.webs = []
+        self.map.leaders = []
+        player=self.map.get_player()
+        player.field=None
+        self.map.set_position(player,player.x,player.y)
+        #generate level
 
 if __name__ == '__main__':
 # Utworzenie egzemplarza gry i jej uruchomienie.

@@ -10,7 +10,7 @@ from spider import Spider
 from skeleton import Skeleton
 from web import Web
 import cmath
-
+from leader import Leader
 
 class Map:
 
@@ -19,6 +19,7 @@ class Map:
         self.MysteryMan=MysteryMan(game)
         self.screen=screen
         self.game=game
+        self.leader = Leader(self.game)
         #self.Web = Web(self.game, 0, 0)
         self.rock=Rock(game,1,screen)
         self.nr_destructible_obj=destructable_obj
@@ -34,6 +35,7 @@ class Map:
         self.minerals=[]
         self.MM=[]
         self.webs=[]
+        self.leaders=[]
         #wypelniam tablice
         for x in range(0,width):
             self.fields[x]=[None]*height
@@ -60,7 +62,9 @@ class Map:
         #self.enemies.append(self.enemy2)
         self.enemies.append(self.enemy3)
         self.MM.append(self.MysteryMan)
-
+        field=self.get_random_field()
+        self.set_position(self.leader,field.x,field.y)
+        self.leaders.append(self.leader)
         #self.webs.append(self.Web)
         #self.set_position(self.Web, 9, 9)
 
@@ -134,3 +138,9 @@ class Map:
                 self.rocks.append(rock2)
     def add_mineral(self,mineral):
         self.minerals.append(mineral)
+
+    def get_random_field(self):
+        pos_x=random.randint(0,self.width-1)
+        pos_y=random.randint(0,self.height-1)
+        if len(self.fields[pos_x][pos_y].objects)==0:
+            return self.fields[pos_x][pos_y]
