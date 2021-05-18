@@ -13,7 +13,7 @@ class Game:
         pygame.display.set_caption("Miner")
         self.graphics = Graphics()
         self.lvl_info=Level_Information()
-        self.map=Map(self,15,15,5,0,self.screen)
+        self.map=Map(self,25,18,5,0,self.screen)
         self.ran=0
         self.pop_up=None
         self.level=1
@@ -155,32 +155,6 @@ class Game:
                 pass
 
 
-
-    def update(self,elapsed):
-        self.map.player.update(elapsed)
-        self.ran+=1
-
-        if self.ran % 800 == 0:
-            #for e in self.map.enemies:
-            if self.map.bat in self.map.bats:
-                self.map.bat.update()
-                self.map.bat.bat_attack(self.map.player)
-
-            if self.map.spider in self.map.spiders:
-                #self.map.enemy2.move_toward_player(self.map.player, self.map)
-                self.map.spider.web_attack(self.map.player, self.map.webs)
-                for w in self.map.webs:
-                    w.update()
-                    w.check_if_at_player_position(self.map.player)
-            if self.map.spider not in self.map.spiders:
-                for w in self.map.webs:
-                    w.update()
-                    w.check_if_at_player_position(self.map.player)
-
-            if self.map.enemy3 in self.map.enemies:
-                self.map.enemy3.skeleton_attack(self.map.player)
-                self.map.enemy3.move_toward_player(self.map.player, self.map)
-
     def next_level(self):
         for w in range(self.map.width):
             for h in range(self.map.height):
@@ -202,6 +176,39 @@ class Game:
         self.map.generate_rocks()
         self.level+=1
         self.map.generate_enemies()
+
+
+
+    def update(self,elapsed):
+        self.map.player.update(elapsed)
+        self.ran+=1
+
+        if self.ran % 800 == 0:
+
+            #for e in self.map.enemies:
+            if self.map.bat in self.map.bats:
+
+                self.map.bat.update()
+                self.map.bat.bat_attack(self.map.player)
+
+
+            if self.map.spider in self.map.spiders:
+                #self.map.enemy2.move_toward_player(self.map.player, self.map)
+                self.map.spider.web_attack(self.map.player, self.map.webs)
+                for w in self.map.webs:
+                    w.update()
+                    w.check_if_at_player_position(self.map.player)
+            if self.map.spider not in self.map.spiders:
+                for w in self.map.webs:
+                    w.update()
+                    w.check_if_at_player_position(self.map.player)
+
+            if self.map.enemy3 in self.map.enemies:
+                self.map.enemy3.skeleton_attack(self.map.player)
+                self.map.enemy3.move_toward_player(self.map.player, self.map)
+
+
+
 
 if __name__ == '__main__':
 # Utworzenie egzemplarza gry i jej uruchomienie.
