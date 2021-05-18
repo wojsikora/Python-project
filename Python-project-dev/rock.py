@@ -44,24 +44,26 @@ class Rock(GameObject):
             rect = pygame.rect.Rect(x_center - 24, y_center - 24, 48, 48)
             pygame.draw.rect(screen, (185,242,255), rect)
         elif self.mineral_type ==Mineral.BEDROCK:
-            rect = pygame.rect.Rect(x_center - 24, y_center - 24, 48, 48)
-            pygame.draw.rect(screen, (0, 0,0), rect)
+            #rect = pygame.rect.Rect(x_center - 24, y_center - 24, 48, 48)
+            #pygame.draw.rect(screen, (0, 0,0), rect)
+            screen.blit(self.game.graphics.bedrock_texture, (x_center - 24, y_center - 24))
         elif self.mineral_type==None:
             rect=pygame.rect.Rect(x_center-24,y_center-24,48,48)
             pygame.draw.rect(screen,(40,40,100),rect)
 
 
     def hit_by_axe(self):
+
         print("hit by axe")
         #pozycja do wyswietlenia mineralu
-        pos_x=self.x
-        pos_y=self.y
-        self.game.map.remove_game_object(self)
-        if self.mineral_type!=None:
-            mineral=Mineral(self.game,self.mineral_type)
-            self.game.map.add_mineral(mineral)
-            self.game.map.set_position(mineral,pos_x,pos_y)
+        if self.mineral_type != 4:
+            pos_x=self.x
+            pos_y=self.y
+            self.game.map.remove_game_object(self)
+            if self.mineral_type!=None:
+                mineral=Mineral(self.game,self.mineral_type)
+                self.game.map.add_mineral(mineral)
+                self.game.map.set_position(mineral,pos_x,pos_y)
 
     def hit_by_weapon(self):
         pass
-
