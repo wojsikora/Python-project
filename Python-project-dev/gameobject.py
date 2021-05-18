@@ -10,3 +10,6 @@ class GameObject:
 
     def hit_by_axe(self):
         pass
+    
+     def hit_by_weapon(self):
+        pass
