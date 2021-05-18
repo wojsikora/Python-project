@@ -27,9 +27,9 @@ class Mineral(GameObject):
         elif self.mineral_type == Mineral.DIAMOND:
             #rect = pygame.rect.Rect(x_center - 24, y_center - 24, 48, 48)
             screen.blit(self.game.graphics.diamond_texture,(x_center-24,y_center-24))
-        elif self.mineral_type == Mineral.BEDROCK:
-            rect = pygame.rect.Rect(x_center - 24, y_center - 24, 48, 48)
-            pygame.draw.rect(screen, (0, 0,0), rect)
+        #elif self.mineral_type == Mineral.BEDROCK:
+        #    rect = pygame.rect.Rect(x_center - 24, y_center - 24, 48, 48)
+        #    pygame.draw.rect(screen, (0, 0,0), rect)
         elif self.mineral_type==None:
             rect=pygame.rect.Rect(x_center-24,y_center-24,48,48)
             pygame.draw.rect(screen,(40,40,100),rect)
