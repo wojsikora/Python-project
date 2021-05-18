@@ -26,6 +26,7 @@ class Map:
         self.nr_indestructible_obj=indestructable_obj
         self.width=width
         self.height=height
+        self.stones_number = int(width*height/4)
         self.enemies=[]
         self.bats=[]
         self.spiders = []
@@ -113,6 +114,44 @@ class Map:
             self.webs.remove(object)
 
 
+
+    def check_if_in_map(self, x, y, a, b):
+        dx = [-1, 0, 1, -1, 1, -1, 0, 1]
+        dy = [-1, -1, -1, 0, 0, 1, 1, 1]
+
+        if x + dx[a] >= 0 and x + dx[a] < self.width and y + dy[b] >= 0 and y + dy[b] < self.height and self.check_if_taken(x + dx[a], y + dy[b] ):
+            return (x + dx[a], y + dy[b])
+        else:
+            return None
+
+    def generate_surrounding_stones(self, x, y):
+        dx = [-1, 0, 1, -1, 1, -1, 0, 1]
+        dy = [-1, -1, -1, 0, 0, 1, 1, 1]
+
+        num = random.randint(2,5)
+
+
+        for i in range(num):
+            a = random.randint(0, 7)
+            b = random.randint(0, 7)
+
+            while(self.check_if_in_map(x, y, a, b) == None):
+                a = random.randint(0, 7)
+                b = random.randint(0, 7)
+
+            stone = Rock(self.game, 1, self.screen, False)
+            self.set_position(stone, x + dx[a] + 0.5, y + dy[b]+ 0.5)
+            self.rocks.append(stone)
+
+
+
+
+
+
+
+
+
+
     def generate_rocks(self):
         nr_obj=0
         while(nr_obj<self.nr_destructible_obj):
@@ -123,8 +162,10 @@ class Map:
             self.set_position(rock1,f.x+0.5,f.y+0.5)
             nr_obj=nr_obj+1
             self.rocks.append(rock1)
+            self.generate_surrounding_stones(f.x, f.y)
         nr_obj3=0
-        while(nr_obj3<self.nr_destructible_obj):
+        #while(nr_obj3<self.nr_destructible_obj):
+        while (nr_obj3 < self.stones_number):
             # x1 = random.randint(0, self.width - 1)
             # y1 = random.randint(0, self.height - 1)
             f = self.get_random_field()
@@ -148,25 +189,29 @@ class Map:
         bats,skeletons,spiders=self.game.lvl_info.enemy_quantities[self.game.level]
         for b in range(bats):
             f=self.get_random_field()
-            bat=Bat(self.game,5,5)
-            bat.enemy_type=0
-            self.set_position(bat,f.x,f.y)
-            self.bats.append(bat)
-            self.enemies.append(bat)
+            self.bat=Bat(self.game,5,5)
+            self.bat.enemy_type=0
+            self.set_position(self.bat,f.x,f.y)
+            self.bats.append(self.bat)
+           # self.enemies.append(bat)
         for s in range(skeletons):
             f=self.get_random_field()
-            skeleton_=Skeleton()
-            skeleton_.eney_type=2
-            self.set_position(skeleton_,f.x,f.y)
-            self.skeletons.append(skeleton_)
-            self.enemies(skeleton_)
+            #self.skeleton=Skeleton()
+            #self.skeleton.enemy_type=2
+            #self.set_position(self.skeleton_,f.x,f.y)
+            #self.skeletons.append(self.skeleton_)
+            self.enemy3 = Enemy(self.game, 100, 10)
+            self.enemy3.enemy_type = 2
+            self.set_position(self.enemy3, f.x, f.y)
+            self.enemies.append(self.enemy3)
+            #self.enemies(skeleton_)
         for sp in range(spiders):
             f=self.get_random_field()
-            spidey=Spider(self.game,10,10)
-            spidey.enemy_type=1
-            self.set_position(spidey,f.x,f.y)
-            self.spiders.append(spidey)
-            self.enemies.append(spidey)
+            self.spider=Spider(self.game,10,10)
+            self.spider.enemy_type=1
+            self.set_position(self.spider,f.x,f.y)
+            self.spiders.append(self.spider)
+            #self.enemies.append(spidey)
 
     def add_mineral(self,mineral):
             self.minerals.append(mineral)
@@ -176,5 +221,10 @@ class Map:
         while True:
             pos_x = random.randint(0, self.width - 1)
             pos_y = random.randint(0, self.height - 1)
-            if len(self.fields[pos_x][pos_y].objects)==0:
+            if self.check_if_taken(pos_x, pos_y):
                 return self.fields[pos_x][pos_y]
+
+    def check_if_taken(self, x, y):
+        if len(self.fields[x][y].objects) == 0:
+            return True
+        return False
