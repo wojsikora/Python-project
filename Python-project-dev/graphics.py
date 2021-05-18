@@ -38,4 +38,5 @@ class Graphics():
         self.box_texture = pygame.transform.scale(picture13, (48, 48))
         lantern_1=pygame.image.load('./images/Torch.gif')
         self.lantern_texture=pygame.transform.scale(lantern_1,(35,35))
-
+        picture14 = pygame.image.load('./images/bedrocktexture.bmp')
+        self.bedrock_texture = pygame.transform.scale(picture14, (48, 48))
