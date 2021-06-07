@@ -1,6 +1,6 @@
 import pygame
-from item_view import ItemView
-from text_view import TextView
+from GUI.item_view import ItemView
+from GUI.text_view import TextView
 
 
 class ShopScene:

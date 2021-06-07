@@ -1,5 +1,5 @@
 import pygame
-from gameobject import GameObject
+from objects.gameobject import GameObject
 
 
 class Mineral(GameObject):

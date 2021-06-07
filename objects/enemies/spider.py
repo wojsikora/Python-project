@@ -1,6 +1,6 @@
 from objects.enemies.enemy import Enemy
 import math
-from web import Web
+from objects.enemies.web import Web
 
 
 class Spider(Enemy):

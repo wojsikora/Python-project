@@ -1,5 +1,4 @@
-from surface import Surface
-import time
+from objects.surface.surface import Surface
 
 
 class Lava(Surface):

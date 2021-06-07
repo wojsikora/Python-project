@@ -1,11 +1,6 @@
-from gameobject import GameObject
-import pygame
+from objects.gameobject import GameObject
 import random
-import math
-from mineral import Mineral
-from web import Web
-# from bat import Bat
-from player import Player
+from objects.player import Player
 
 
 class Enemy(GameObject):

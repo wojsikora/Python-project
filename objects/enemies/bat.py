@@ -1,5 +1,7 @@
-from enemy import Enemy
+
 import pygame
+
+from objects.enemies.enemy import Enemy
 
 
 class Bat(Enemy):

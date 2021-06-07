@@ -1,6 +1,5 @@
-import pygame
-from gameobject import GameObject
-from player import Player
+from objects.gameobject import GameObject
+from objects.player import Player
 
 
 class Web(GameObject):

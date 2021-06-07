@@ -1,4 +1,4 @@
-from surface import Surface
+from objects.surface.surface import Surface
 
 
 class Water(Surface):

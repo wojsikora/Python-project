@@ -1,5 +1,6 @@
 import pygame
-from item import Item
+
+from eq.item import Item
 
 
 class Weapon(Item):

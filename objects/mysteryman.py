@@ -1,5 +1,5 @@
 import random
-from gameobject import GameObject
+from objects.gameobject import GameObject
 from eq.pickaxe import Pickaxe
 from eq.weapon import Weapon
 from eq.clothing import Clothing

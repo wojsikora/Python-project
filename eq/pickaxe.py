@@ -1,4 +1,4 @@
-from item import Item
+from eq.item import Item
 
 
 class Pickaxe(Item):
