@@ -40,7 +40,7 @@ class ShopScene:
 
     def mouse_pressed(self, event):
         x, y = pygame.mouse.get_pos()
-        # todo
+
         if pygame.mouse.get_pressed()[0]:
             field_clicked = self.find_clicked_item_view(x, y, self.item_views_shop)
             if field_clicked != -1:

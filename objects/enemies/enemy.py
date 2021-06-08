@@ -25,17 +25,6 @@ class Enemy(GameObject):
         elif self.enemy_type == Enemy.SKELETON:
             screen.blit(self.game.graphics.skeleton_texture, (x_center - 24, y_center - 24))
 
-    # def hit_by_axe(self):
-    #   self.health-=5
-    #   print("hit by axe")
-
-    #   if(self.health<=0):
-    #       self.game.map.remove_game_object(self)
-
-    # def rand_type(self):
-    #    if enemy.type == 0:
-    #        bat = Bat()
-
     def hit_by_weapon(self):
 
         self.health -= self.game.map.player.current_weapon.damage

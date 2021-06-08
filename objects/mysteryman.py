@@ -18,10 +18,6 @@ class MysteryMan(GameObject):
         self.goods.append(Clothing(2, self.game.graphics.armor2_texture, 5))
         self.goods.append(Weapon(10, game.graphics.sword_texture, 10))
 
-    def trade(self):
-        print("trading")
-        # pozycja do wyswietlenia mineralu
-
     def generate_position(self):
         while True:
             x = random.randint(0, self.game.map.width)

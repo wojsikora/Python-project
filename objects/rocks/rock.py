@@ -15,7 +15,6 @@ class Rock(GameObject):
     def __init__(self, game, destructable, screen, contains_minerals):
         super().__init__(game, False)
         self.screen = screen
-        #self.indestructable_rock = pygame.image.load('.../.../.../.../images/bedrocktexture.bmp')
         self.destructable = destructable
         self.contains_minerals = contains_minerals
         if destructable and contains_minerals:
@@ -58,7 +57,7 @@ class Rock(GameObject):
 
     def hit_by_axe(self):
 
-        print("hit by axe")
+
         # pozycja do wyswietlenia mineralu
         if self.mineral_type != 4:
             pos_x = self.x

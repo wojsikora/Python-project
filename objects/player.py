@@ -88,7 +88,7 @@ class Player(GameObject):
                 # wyjscie za mape
                 if 0 <= field_x < self.game.map.width and 0 <= field_y < self.game.map.height:
                     for obj in self.game.map.fields[field_x][field_y].objects:
-                        print("hit")
+
                         if self.pressed_axe:
                             obj.hit_by_axe()
                         elif self.pressed_weapon:

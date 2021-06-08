@@ -120,13 +120,12 @@ class Game:
 
     def check_mouse_pressed(self, event):
         if self.pop_up is not None:
-            # todo
+
             if pygame.mouse.get_pressed()[0]:
                 self.pop_up.mouse_pressed(event)
-                print(f"Possition x ={self.clicked_x} possition y= {self.clicked_y}")
 
     def check_mouse_released(self, event):
-        if self.pop_up != None:
+        if self.pop_up is not None:
             if event.button:
                 pass
 
